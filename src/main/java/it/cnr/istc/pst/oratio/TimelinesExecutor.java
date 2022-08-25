@@ -12,6 +12,7 @@ public class TimelinesExecutor {
 
     final Solver solver;
     private final long native_handle;
+    private final long executor_listener_native_handle = 0;
     private final Collection<ExecutorListener> executor_listeners = new ArrayList<>();
 
     public TimelinesExecutor(final Solver solver) {

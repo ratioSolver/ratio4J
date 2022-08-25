@@ -2,24 +2,31 @@
 #include "java_core_listener.h"
 #include "java_solver_listener.h"
 
-std::unordered_map<ratio::solver::solver *, std::pair<ratio::java::java_core_listener *, ratio::java::java_solver_listener *>> solvers;
-
 inline ratio::solver::solver *get_solver(JNIEnv *env, jobject obj) { return reinterpret_cast<ratio::solver::solver *>(env->GetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "native_handle", "J"))); }
+inline ratio::java::java_core_listener *get_core_listener(JNIEnv *env, jobject obj) { return reinterpret_cast<ratio::java::java_core_listener *>(env->GetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "core_listener_native_handle", "J"))); }
+inline ratio::java::java_solver_listener *get_solver_listener(JNIEnv *env, jobject obj) { return reinterpret_cast<ratio::java::java_solver_listener *>(env->GetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "solver_listener_native_handle", "J"))); }
 
 JNIEXPORT jlong JNICALL Java_it_cnr_istc_pst_oratio_Solver_new_1instance(JNIEnv *env, jobject obj)
 {
     auto *s = new ratio::solver::solver(false);
-    solvers.emplace(s, std::make_pair<ratio::java::java_core_listener *, ratio::java::java_solver_listener *>(new ratio::java::java_core_listener(*s, env, obj), new ratio::java::java_solver_listener(*s, env, obj)));
+
+    auto *cl = new ratio::java::java_core_listener(*s, env, obj);
+    env->SetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "core_listener_native_handle", "J"), reinterpret_cast<jlong>(cl));
+    auto *sl = new ratio::java::java_solver_listener(*s, env, obj);
+    env->SetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "solver_listener_native_handle", "J"), reinterpret_cast<jlong>(sl));
+
     s->init();
+
     return reinterpret_cast<jlong>(s);
 }
 
 JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_Solver_dispose(JNIEnv *env, jobject obj)
 {
-    auto *s = get_solver(env, obj);
-    delete solvers.at(s).first;
-    delete solvers.at(s).second;
-    delete s;
+    delete get_solver_listener(env, obj);
+    env->SetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "solver_listener_native_handle", "J"), 0);
+    delete get_core_listener(env, obj);
+    env->SetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "core_listener_native_handle", "J"), 0);
+    delete get_solver(env, obj);
     env->SetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "native_handle", "J"), 0);
 }
 

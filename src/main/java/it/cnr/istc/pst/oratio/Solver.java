@@ -38,6 +38,8 @@ public class Solver implements Scope, Env {
     public static final String END = "end";
 
     private final long native_handle;
+    private final long core_listener_native_handle = 0;
+    private final long solver_listener_native_handle = 0;
     final Map<String, Field> fields = new LinkedHashMap<>();
     final Map<String, Collection<Method>> methods = new LinkedHashMap<>();
     final Map<String, Type> types = new LinkedHashMap<>();
