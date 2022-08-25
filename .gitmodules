@@ -1,0 +1,3 @@
+[submodule "src/main/cpp/extern/plexa"]
+	path = src/main/cpp/extern/plexa
+	url = https://github.com/ratioSolver/PlExA
