@@ -17,13 +17,12 @@ public class Solver implements Scope, Env {
 
     static {
         System.loadLibrary("json");
-        System.loadLibrary("smt");
-        System.loadLibrary("riddle");
-        System.loadLibrary("core");
-        System.loadLibrary("solver");
-        System.loadLibrary("executor");
-        System.loadLibrary("solver-java-api");
-        System.loadLibrary("executor-java-api");
+        System.loadLibrary("SeMiTONE");
+        System.loadLibrary("RiDDLe");
+        System.loadLibrary("ratioCore");
+        System.loadLibrary("oRatio");
+        System.loadLibrary("PlExA");
+        System.loadLibrary("ratio4J");
     }
     public static final String BOOL = "bool";
     public static final String INT = "int";
