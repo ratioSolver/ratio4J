@@ -1,0 +1,7 @@
+set(RATIO4j_VERSION 1.0.0)
+
+@PACKAGE_INIT@
+
+set_and_check(RATIO4j_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@/ratio4j")
+
+check_required_components(ratio4j)
