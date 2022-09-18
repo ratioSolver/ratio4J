@@ -86,19 +86,31 @@ public class TimelinesExecutor {
     }
 
     private void fireStartingAtoms(final long[] atoms) {
-        executor_listeners.stream().forEach(l -> l.startingAtoms(atoms));
+        Atom[] c_atoms = new Atom[atoms.length];
+        for (int i = 0; i < c_atoms.length; i++)
+            c_atoms[i] = solver.atoms.get(atoms[i]);
+        executor_listeners.stream().forEach(l -> l.startingAtoms(c_atoms));
     }
 
     private void fireStartAtoms(final long[] atoms) {
-        executor_listeners.stream().forEach(l -> l.startAtoms(atoms));
+        Atom[] c_atoms = new Atom[atoms.length];
+        for (int i = 0; i < c_atoms.length; i++)
+            c_atoms[i] = solver.atoms.get(atoms[i]);
+        executor_listeners.stream().forEach(l -> l.startAtoms(c_atoms));
     }
 
     private void fireEndingAtoms(final long[] atoms) {
-        executor_listeners.stream().forEach(l -> l.endingAtoms(atoms));
+        Atom[] c_atoms = new Atom[atoms.length];
+        for (int i = 0; i < c_atoms.length; i++)
+            c_atoms[i] = solver.atoms.get(atoms[i]);
+        executor_listeners.stream().forEach(l -> l.endingAtoms(c_atoms));
     }
 
     private void fireEndAtoms(final long[] atoms) {
-        executor_listeners.stream().forEach(l -> l.endAtoms(atoms));
+        Atom[] c_atoms = new Atom[atoms.length];
+        for (int i = 0; i < c_atoms.length; i++)
+            c_atoms[i] = solver.atoms.get(atoms[i]);
+        executor_listeners.stream().forEach(l -> l.endAtoms(c_atoms));
     }
 
     public void addExecutorListener(final ExecutorListener l) {

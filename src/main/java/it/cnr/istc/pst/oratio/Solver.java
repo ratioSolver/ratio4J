@@ -3,6 +3,7 @@ package it.cnr.istc.pst.oratio;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -45,6 +46,8 @@ public class Solver implements Scope, Env {
     final Map<String, Type> types = new LinkedHashMap<>();
     final Map<String, Predicate> predicates = new LinkedHashMap<>();
     final Map<String, Item> exprs = new LinkedHashMap<>();
+    final Map<Long, Item> items = new HashMap<>();
+    final Map<Long, Atom> atoms = new HashMap<>();
     private final TimelinesList timelines;
     private final boolean build_timelines_at_state_change;
     private final boolean build_timelines_at_solution_found;

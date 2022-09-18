@@ -13,6 +13,11 @@ public class Item implements Env {
     private String name; // a mnemonic name..
 
     Item(final Solver solver, final Type type, final long id) {
+        if (!type.isPrimitive())
+            if (this instanceof Atom)
+                solver.atoms.put(id, (Atom) this);
+            else
+                solver.items.put(id, this);
         this.solver = solver;
         this.type = type;
         this.id = id;
