@@ -28,6 +28,18 @@ public class TimelinesExecutor {
 
     public native void dispose();
 
+    public synchronized native void adapt(String script) throws SolverException;
+
+    public synchronized native void adapt(String[] files) throws SolverException;
+
+    public synchronized native boolean is_executing();
+
+    public synchronized native void start_execution();
+
+    public synchronized native void pause_execution();
+
+    public synchronized native boolean is_finished();
+
     public synchronized native void tick() throws ExecutorException;
 
     public void dontStartYet(Set<Atom> atoms) throws ExecutorException {

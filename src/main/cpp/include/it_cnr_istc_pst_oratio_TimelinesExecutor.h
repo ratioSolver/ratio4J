@@ -25,6 +25,54 @@ JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_dispose
 
 /*
  * Class:     it_cnr_istc_pst_oratio_TimelinesExecutor
+ * Method:    adapt
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_adapt__Ljava_lang_String_2
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     it_cnr_istc_pst_oratio_TimelinesExecutor
+ * Method:    adapt
+ * Signature: ([Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_adapt___3Ljava_lang_String_2
+  (JNIEnv *, jobject, jobjectArray);
+
+/*
+ * Class:     it_cnr_istc_pst_oratio_TimelinesExecutor
+ * Method:    is_executing
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_is_1executing
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     it_cnr_istc_pst_oratio_TimelinesExecutor
+ * Method:    start_execution
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_start_1execution
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     it_cnr_istc_pst_oratio_TimelinesExecutor
+ * Method:    pause_execution
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_pause_1execution
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     it_cnr_istc_pst_oratio_TimelinesExecutor
+ * Method:    is_finished
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_is_1finished
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     it_cnr_istc_pst_oratio_TimelinesExecutor
  * Method:    tick
  * Signature: ()V
  */

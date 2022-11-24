@@ -29,6 +29,52 @@ JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_dispose(JNI
     env->SetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "native_handle", "J"), 0);
 }
 
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_adapt__Ljava_lang_String_2(JNIEnv *env, jobject obj, jstring script)
+{
+    jboolean is_copy;
+    const char *utf_script = env->GetStringUTFChars(script, &is_copy);
+    try
+    {
+        get_executor(env, obj)->adapt(utf_script);
+    }
+    catch (const std::exception &e)
+    {
+        env->ThrowNew(env->FindClass("it/cnr/istc/pst/oratio/ExecutorException"), e.what());
+    }
+    if (is_copy == JNI_TRUE)
+        env->ReleaseStringUTFChars(script, utf_script);
+}
+
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_adapt___3Ljava_lang_String_2(JNIEnv *env, jobject obj, jobjectArray files)
+{
+    std::vector<std::string> c_files;
+    for (jsize i = 0; i < env->GetArrayLength(files); ++i)
+    {
+        jboolean is_copy;
+        jstring c_file = reinterpret_cast<jstring>(env->GetObjectArrayElement(files, i));
+        const char *utf_file = env->GetStringUTFChars(c_file, &is_copy);
+        c_files.push_back(utf_file);
+        if (is_copy == JNI_TRUE)
+            env->ReleaseStringUTFChars(c_file, utf_file);
+    }
+    try
+    {
+        get_executor(env, obj)->adapt(c_files);
+    }
+    catch (const std::exception &e)
+    {
+        env->ThrowNew(env->FindClass("it/cnr/istc/pst/oratio/ExecutorException"), e.what());
+    }
+}
+
+JNIEXPORT jboolean JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_is_1executing(JNIEnv *env, jobject obj) { return get_executor(env, obj)->is_executing(); }
+
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_start_1execution(JNIEnv *env, jobject obj) { get_executor(env, obj)->start_execution(); }
+
+JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_pause_1execution(JNIEnv *env, jobject obj) { get_executor(env, obj)->pause_execution(); }
+
+JNIEXPORT jboolean JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_is_1finished(JNIEnv *env, jobject obj) { return get_executor(env, obj)->is_finished(); }
+
 JNIEXPORT void JNICALL Java_it_cnr_istc_pst_oratio_TimelinesExecutor_tick(JNIEnv *env, jobject obj)
 {
     try
